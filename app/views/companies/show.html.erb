@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @company.name %>
+</p>
+
+<%= form_with(model: [ @company, @employee ]) do |form| %>
+<%= form.label 'Nombre' %>
+ <%= form.text_field :first_name %>
+ <%= form.label 'Apellido' %>
+ <%= form.text_field :last_name %>
+ <%= form.label 'email' %>
+ <%= form.text_field :email %>
+<%= form.label 'Area' %>
+ <%= form.select :area_id, @area.collect{|a| [a.name, a.id]} %>
+ <%= form.submit %>
+<% end %>
+
+<%= link_to 'Edit', edit_company_path(@company) %> |
+<%= link_to 'Back', companies_path %>
+
+
+<table class="table table-bordered">
+</br>
+</br>
+</br>
+  <tr>
+    <th>Nombre</th>   
+    <th>Apellido</th>
+    <th>Email</th>     
+    <th>Area</th>
+    <th>Eliminar</th>
+  </tr>
+  <% @company.employees.each do |empl| %>
+	<tr>
+		<td><%=empl.first_name %></td>
+		<td><%=empl.last_name %></td>
+		<td><%=empl.email %></td>
+		<td><%=empl.area_id %></td>
+		<td><%= link_to "Destroy", company_employee_path(@company, empl), class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' }%> </td>
+	</tr>
+	<%end%>
+
+</table>
